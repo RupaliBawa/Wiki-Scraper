@@ -1,5 +1,9 @@
 Scraping data off of Wikipedia (https://www.wikipedia.org/)
 
+You need BeautifulSoup to run this project. I use a micro-version of it in
+this project. You can change it by modifying 
+  Scrape.py -> from bs4 import BeautifulSoup
+
 In this project, we are using Wikipedia as source for user-entered keywords,
 and displaying them in a tabular format.
 
