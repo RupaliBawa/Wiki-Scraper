@@ -1,0 +1,49 @@
+
+body {
+  background-color: pink;
+}
+
+  #dataTable, #wordcloud {
+    font-size: 14pt;
+    align-items:center;
+    text-align: center;
+  }
+
+  #dataTable, table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+  th, td {
+    padding: 5px;
+    text-align: center;
+    }
+  table tr:nth-child(even) {
+    background-color: #eee;
+    }
+  table tr:nth-child(odd) {
+    background-color: #fff;
+    }
+  table th {
+    background-color: black;
+    color: white;
+    }
+    button {
+      padding: 10px 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 11px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid #555555;
+    }
+    button:hover {
+      background-color: #555555;
+      border: 2px solid #555555;
+      border: none;
+      color: white;
+    }

@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import urllib.request, urllib.parse, urllib.error
 import ssl
+import re
+import random
 import codecs
 
 #ignore ssl certifications
@@ -18,6 +20,7 @@ data = urllib.request.urlopen(url, context=ctx).read().decode()
 soup = BeautifulSoup(data, 'html.parser')
 lists = (soup.find_all('ul', {'class':'mw-search-results'}))[0].find_all('li')
 
+titles = []
 fh = codecs.open("View.js", 'w', 'utf-8')
 fh.write("myData = [\n")
 i = 1
@@ -27,6 +30,7 @@ for list in lists:
     title = tag[0]['title']
     link = "https://en.wikipedia.org"+tag[0]['href']
     print(id, title, link, "\n")
+    titles.append(title)
     fh.write('''['''+str(id)+''',"'''+title+'''","'''+link+'''"],\n''')
 
     i = i+1
@@ -41,3 +45,28 @@ document.write("<tr><td>"+value[0]+"</td><td>"+value[1]+"</td><td><a href='"+val
 }
 ''')
 fh.close
+
+print(titles)
+
+# Spread the font sizes across 20-100 based on the count
+bigsize = 80
+smallsize = 20
+#counts = [*range(10,60,4)]
+regex = re.compile("[!@#$%^&*()_+-=?<>:'|\/.,;`~]")
+
+fhand = open('word.js','w')
+fhand.write("gword = [")
+first = True
+i=0
+for k in titles:
+    if regex.search(k) != None: continue
+    if not first : fhand.write( ",\n")
+    first = False
+    #size = counts[k]
+    #size = (size - lowest) / float(highest - lowest)
+    #size = int((size * bigsize) + smallsize)
+    fhand.write("{text: '"+k+"', size: "+str(random.randrange(10,50,4))+"}")
+    #i=i+1
+    #if(i>90): i=50
+fhand.write( "\n];\n")
+fhand.close()

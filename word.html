@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+  <title>Word Cloud</title>
+  <meta charset="utf-8">
+  <script src="d3.v2.js"></script>
+  <script src="d3.layout.cloud.js"></script>
+  <script type="text/javascript" src="View.js"></script>
+  <script src="word.js"></script>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="dataTable" style="text-align: center;">
+    <div class="container">
+      <p>Data Table</p>
+        <table id="table01" style="width:90%">
+        <tr>
+          <th>Sr. no.</th>
+          <th>Title</th>
+          <th>Link</th>
+        </tr>
+        <script> link(); </script>
+        </table>
+    </div>
+  </div>
+  <br>
+  <div id="wordcloud" style="text-align: center;">
+    <div class="container">
+      <p>Word Cloud</p>
+<script>
+  var fill = d3.scale.category20();
+
+  d3.layout.cloud().size([1500, 1500])
+      .words(gword)
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", 700)
+        .attr("height", 700)
+      .append("g")
+        .attr("transform", "translate(350,350)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+</script>
+</div>
+</div>
+</body>
+</html>
